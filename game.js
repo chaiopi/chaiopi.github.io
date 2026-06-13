@@ -151,15 +151,55 @@ player.power=30;
 
 function explore(){
 
-let roll=Math.random();
+let monster =
+monsters[
+Math.floor(
+Math.random()*monsters.length
+)
+];
 
-if(roll<0.4){
+log(
+"⚔️ 遭遇 "+monster.name
+);
 
-let stone=Math.floor(Math.random()*50);
+if(player.power >= monster.power){
 
-player.gold+=stone;
+player.exp += monster.exp;
 
-log("💰 發現靈石 "+stone);
+player.gold += monster.gold;
+
+player.bag.push({
+name:monster.drop,
+power:0
+});
+
+log(
+"🏆 擊敗 "+monster.name
+);
+
+log(
+"✨ 修為 +"+monster.exp
+);
+
+log(
+"💰 靈石 +"+monster.gold
+);
+
+log(
+"🎁 獲得 "+monster.drop
+);
+
+}else{
+
+log(
+"💀 不敵 "+monster.name
+);
+
+}
+
+checkRealm();
+
+updateUI();
 
 }
 
@@ -179,10 +219,15 @@ updateUI();
 
 function showBag(){
 
-alert(
-"靈石："+player.gold+
-"\n修為："+player.exp
-);
+let text="【背包】\n\n";
+
+player.bag.forEach(item=>{
+
+text+=item.name+"\n";
+
+});
+
+alert(text);
 
 }
 
@@ -239,7 +284,23 @@ log(
 
 function openVillage(){
 
-log("🏠 村莊系統開發中");
+function openVillage(){
+
+let v=player.village;
+
+alert(
+
+"🏠 村莊資訊\n\n"+
+
+"等級："+v.level+"\n"+
+
+"人口："+v.population+"\n"+
+
+"木材："+v.wood+"\n"+
+
+"糧食："+v.food
+
+);
 
 }
 
