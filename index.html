@@ -65,29 +65,29 @@ let money = 500;
 
 const villagers = [
 
-    {
-        name:"王爸",
-        x:200,
-        y:200,
-        job:"伐木"
-        img:"wangba"
-    },
+   {
+    name:"王爸",
+    x:200,
+    y:200,
+    job:"伐木",
+    img:"wangba"
+},
 
-    {
-        name:"葉媽",
-        x:300,
-        y:250,
-        job:"農耕"
-        img:"yema"
-    },
+ {
+    name:"葉媽",
+    x:300,
+    y:250,
+    job:"農耕",
+    img:"yema"
+},
 
-    {
-        name:"甯兒",
-        x:400,
-        y:300,
-        job:"玩耍"
-        img:"ninger"
-    }
+   {
+    name:"甯兒",
+    x:400,
+    y:300,
+    job:"玩耍",
+    img:"ninger"
+}
 
 ];
 
@@ -154,13 +154,15 @@ if(v.img==="ninger"){
     img = ningerImg;
 }
 
-ctx.drawImage(
-    img,
-    v.x - 32,
-    v.y - 48,
-    64,
-    64
-);
+if(img){
+    ctx.drawImage(
+        img,
+        v.x - 32,
+        v.y - 48,
+        64,
+        64
+    );
+}
 
         ctx.fillStyle="black";
 
