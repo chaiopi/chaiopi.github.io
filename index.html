@@ -62,7 +62,18 @@ ningerImg.src = "ninger.png";
 let wood = 50;
 let food = 50;
 let money = 500;
+function updateUI(){
 
+document.getElementById("topbar").innerHTML =
+"🏡 從流民到王朝 ｜ 春季 ｜ 第1天 ｜ 06:00 ｜ 人口：3 ｜ 木材：" +
+wood +
+" ｜ 糧食：" +
+food +
+" ｜ 銅錢：" +
+money;
+
+}
+    
 const villagers = [
 
    {
@@ -177,6 +188,23 @@ if(img){
     requestAnimationFrame(draw);
 }
 
+setInterval(()=>{
+
+    wood++;
+
+    updateUI();
+
+},5000);
+
+setInterval(()=>{
+
+    food++;
+
+    updateUI();
+
+},7000);
+
+updateUI();
 draw();
 
 </script>
