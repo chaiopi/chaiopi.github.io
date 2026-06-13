@@ -7,6 +7,8 @@ let roots = [
 "混沌靈根"
 ];
 
+
+
 let player = {
 
 name:"散修",
@@ -23,9 +25,63 @@ power:10,
 
 partner:null,
 
-children:[]
+children:[],
+
+bag:[
+{
+name:"木劍",
+power:5
+}
+],
+
+village:{
+level:1,
+wood:50,
+food:50,
+population:3
+}
 
 };
+
+const monsters = [
+
+{
+name:"野狼",
+hp:20,
+power:5,
+exp:15,
+gold:20,
+drop:"狼牙"
+},
+
+{
+name:"山豬",
+hp:35,
+power:10,
+exp:25,
+gold:35,
+drop:"豬皮"
+},
+
+{
+name:"蛇妖",
+hp:60,
+power:20,
+exp:50,
+gold:60,
+drop:"妖丹"
+},
+
+{
+name:"黑熊妖",
+hp:120,
+power:40,
+exp:100,
+gold:120,
+drop:"熊膽"
+}
+
+];
 
 function log(msg){
 
