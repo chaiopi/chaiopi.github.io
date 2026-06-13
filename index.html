@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>從流民到王朝</title>
+
+<style>
+body{
+    margin:0;
+    background:#d8e8c8;
+    font-family:"Microsoft JhengHei";
+}
+
+#topbar{
+    background:#3d5a40;
+    color:white;
+    padding:10px;
+}
+
+#game{
+    border:2px solid #333;
+    display:block;
+    margin:auto;
+    background:#8fbc8f;
+}
+</style>
+
+</head>
+<body>
+
+<div id="topbar">
+🏕️ 從流民到王朝
+｜人口：3
+｜木材：50
+｜糧食：50
+｜銅錢：500
+</div>
+
+<canvas id="game" width="1000" height="600"></canvas>
+
+<script>
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+const villagers = [
+    {name:"王勝德",x:200,y:200},
+    {name:"葉亭妤",x:300,y:250},
+    {name:"王筠甯",x:400,y:300}
+];
+
+function draw(){
+
+    ctx.clearRect(0,0,1000,600);
+
+    //草地
+    ctx.fillStyle="#8fbc8f";
+    ctx.fillRect(0,0,1000,600);
+
+    //河流
+    ctx.fillStyle="#4da6ff";
+    ctx.fillRect(0,450,1000,80);
+
+    //帳篷
+    ctx.fillStyle="#996633";
+    ctx.fillRect(500,250,80,60);
+
+    villagers.forEach(v=>{
+
+        v.x += (Math.random()-0.5)*2;
+        v.y += (Math.random()-0.5)*2;
+
+        ctx.fillStyle="white";
+
+        ctx.beginPath();
+        ctx.arc(v.x,v.y,10,0,Math.PI*2);
+        ctx.fill();
+
+        ctx.fillStyle="black";
+        ctx.fillText(v.name,v.x-20,v.y-15);
+
+    });
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
