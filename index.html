@@ -1,1 +1,183 @@
 
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>無限修仙傳</title>
+
+<style>
+body{
+    background:#111;
+    color:#00ff99;
+    font-family:Microsoft JhengHei;
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+}
+
+#log{
+    border:1px solid #00ff99;
+    height:400px;
+    overflow-y:auto;
+    padding:10px;
+    margin-bottom:20px;
+}
+
+button{
+    background:#222;
+    color:#00ff99;
+    border:1px solid #00ff99;
+    padding:10px;
+    margin:5px;
+    cursor:pointer;
+}
+
+.stats{
+    margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>⚔️ 無限修仙傳 ⚔️</h1>
+
+<div class="stats">
+境界：<span id="realm">凡人</span><br>
+修為：<span id="exp">0</span><br>
+靈石：<span id="gold">100</span><br>
+生命：<span id="hp">100</span>
+</div>
+
+<div id="log"></div>
+
+<button onclick="cultivate()">閉關修煉</button>
+<button onclick="explore()">外出歷練</button>
+<button onclick="shop()">購買丹藥</button>
+<button onclick="save()">儲存</button>
+
+<script>
+
+let player = {
+    exp:0,
+    gold:100,
+    hp:100,
+    realm:"凡人"
+};
+
+function log(text){
+    document.getElementById("log").innerHTML += text+"<br>";
+    document.getElementById("log").scrollTop =
+    document.getElementById("log").scrollHeight;
+}
+
+function update(){
+    document.getElementById("exp").innerText=player.exp;
+    document.getElementById("gold").innerText=player.gold;
+    document.getElementById("hp").innerText=player.hp;
+    document.getElementById("realm").innerText=player.realm;
+
+    if(player.exp>=1000)
+        player.realm="元嬰";
+    else if(player.exp>=500)
+        player.realm="金丹";
+    else if(player.exp>=200)
+        player.realm="築基";
+    else if(player.exp>=50)
+        player.realm="煉氣";
+}
+
+function cultivate(){
+
+    let gain=Math.floor(Math.random()*20)+10;
+
+    player.exp+=gain;
+
+    log("🧘 閉關修煉成功，獲得修為 "+gain);
+
+    update();
+}
+
+function explore(){
+
+    let event=Math.random();
+
+    if(event<0.4){
+
+        let gain=Math.floor(Math.random()*30)+10;
+
+        player.gold+=gain;
+
+        log("💰 發現靈石礦，獲得 "+gain+" 靈石");
+
+    }else if(event<0.8){
+
+        let gain=Math.floor(Math.random()*40)+20;
+
+        player.exp+=gain;
+
+        log("⚔️ 擊敗妖獸，獲得 "+gain+" 修為");
+
+    }else{
+
+        let dmg=Math.floor(Math.random()*20)+5;
+
+        player.hp-=dmg;
+
+        log("☠️ 遭遇強敵，失去 "+dmg+" 生命");
+
+    }
+
+    update();
+}
+
+function shop(){
+
+    if(player.gold>=50){
+
+        player.gold-=50;
+        player.hp+=30;
+
+        log("💊 購買回春丹，恢復30生命");
+
+    }else{
+
+        log("❌ 靈石不足");
+
+    }
+
+    update();
+}
+
+function save(){
+
+    localStorage.setItem(
+        "xiuxian",
+        JSON.stringify(player)
+    );
+
+    log("✅ 已儲存");
+}
+
+function load(){
+
+    let data=localStorage.getItem("xiuxian");
+
+    if(data){
+
+        player=JSON.parse(data);
+
+        log("📖 讀取存檔成功");
+
+        update();
+    }
+}
+
+load();
+update();
+
+log("歡迎踏入修仙世界！");
+</script>
+
+</body>
+</html>
