@@ -1,0 +1,35 @@
+body{
+background:#0b0b0b;
+color:#00ff99;
+font-family:Microsoft JhengHei;
+max-width:1000px;
+margin:auto;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.player{
+border:1px solid #00ff99;
+padding:15px;
+margin-bottom:20px;
+}
+
+#log{
+height:450px;
+border:1px solid #00ff99;
+padding:10px;
+overflow-y:auto;
+margin-bottom:20px;
+}
+
+button{
+padding:10px;
+margin:5px;
+background:black;
+color:#00ff99;
+border:1px solid #00ff99;
+cursor:pointer;
+}
