@@ -165,14 +165,31 @@ if(v.img==="ninger"){
     img = ningerImg;
 }
 
+let size = 96;
+
+if(v.img==="wangba"){
+    size = 115;
+}
+
+if(v.img==="yema"){
+    size = 90;
+}
+
+if(v.img==="ninger"){
+    size = 85;
+}
+
 if(img){
+
     ctx.drawImage(
         img,
-        v.x - 32,
-        v.y - 48,
-        128,
-        128
+        v.x - size/2,
+        v.y - size/2,
+        size,
+        size
     );
+
+}
 }
 
         ctx.fillStyle="black";
@@ -180,7 +197,7 @@ if(img){
         ctx.fillText(
     v.name,
     v.x - 15,
-    v.y - 55
+    v.y + 55
 );
 
     });
