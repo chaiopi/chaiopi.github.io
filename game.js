@@ -9,10 +9,6 @@ bag:[]
 const rarityList = ["普通", "精良", "稀有", "傳說"];
 
 const monsters = [
-...
-];
-
-const monsters = [
 {name:"野狼", hp:20, power:5, exp:10, gold:10, drop:"狼牙"},
 {name:"山豬", hp:40, power:10, exp:20, gold:20, drop:"豬皮"},
 {name:"蛇妖", hp:60, power:15, exp:40, gold:40, drop:"蛇膽"}
