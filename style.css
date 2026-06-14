@@ -1,19 +1,19 @@
 body{
-background:black;
+background:#000;
 color:#00ff88;
 font-family:Arial;
 text-align:center;
 }
 
 h1{
-font-size:60px;
+margin:20px 0;
 }
 
 #panel{
 width:500px;
 margin:auto;
 border:1px solid #00ff88;
-padding:20px;
+padding:15px;
 margin-bottom:10px;
 }
 
@@ -31,17 +31,10 @@ margin-bottom:10px;
 #bagBox{
 width:500px;
 margin:auto;
-margin-bottom:10px;
-}
-
-.bagItem button{
-width:100%;
-margin:5px 0;
-padding:10px;
-background:black;
-color:white;
 border:1px solid #00ff88;
-cursor:pointer;
+padding:10px;
+margin-bottom:10px;
+min-height:100px;
 }
 
 #menu{
@@ -49,12 +42,16 @@ width:500px;
 margin:auto;
 }
 
-#menu button{
+button{
 width:100%;
+padding:10px;
 margin:5px 0;
-padding:12px;
-background:black;
+background:#111;
 color:#00ff88;
 border:1px solid #00ff88;
 cursor:pointer;
+}
+
+button:hover{
+background:#222;
 }
