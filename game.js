@@ -66,9 +66,11 @@ children:[],
 
 bag:[
 {
-name:"木劍"
+name:"木劍",
+type:"weapon",
+power:5
 }
-],
+]
 
 village:{
 level:1,
