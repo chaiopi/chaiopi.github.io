@@ -185,27 +185,30 @@ updateUI();
 
 function explore(){
 
-let monster=
-monsters[
-Math.floor(Math.random()*monsters.length)
-];
+let monster =
+monsters[Math.floor(Math.random()*monsters.length)];
 
-log("⚔️ 遭遇 "+monster.name);
+log("👹 遭遇 " + monster.name);
 
+// ⚔️ 戰鬥判定
 if(
 player.power + player.weapon.power
 >= monster.power
 ){
 
-player.exp+=monster.exp;
+log("🏆 擊敗 " + monster.name);
 
-player.gold+=monster.gold;
+player.exp += monster.exp;
+player.gold += monster.gold;
 
+// 🎁 掉材料
 player.bag.push({
 name:monster.drop,
-type:"item"
+type:"item",
+power:0
 });
 
+// ⚔️ 掉武器（只在勝利後）
 if(Math.random()<0.3){
 
 player.bag.push({
@@ -213,6 +216,16 @@ name:"鐵劍",
 type:"weapon",
 power:10
 });
+
+}
+
+updateUI();
+
+}else{
+
+log("💀 被擊敗 " + monster.name);
+
+}
 
 }
   
