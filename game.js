@@ -285,7 +285,7 @@ window.equip = function(index){
 function showBag(){
 
     let box =
-        document.getElementById("log");
+        document.getElementById("bagBox");
 
     let html =
         "<b>【背包】</b><br><br>";
