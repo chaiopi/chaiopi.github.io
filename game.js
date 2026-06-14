@@ -39,7 +39,14 @@ let player = {
     armor: null,
 
     // 背包
-    bag: [],
+    bag: [
+    {
+        name:"木劍",
+        type:"weapon",
+        atk:5,
+        rarity:"普通"
+    }
+],
 
     // 系統
     skills: [],
