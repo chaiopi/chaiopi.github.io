@@ -6,6 +6,11 @@ power:10,
 weapon:{name:"木劍", power:5},
 bag:[]
 };
+const rarityList = ["普通", "精良", "稀有", "傳說"];
+
+const monsters = [
+...
+];
 
 const monsters = [
 {name:"野狼", hp:20, power:5, exp:10, gold:10, drop:"狼牙"},
