@@ -70,8 +70,7 @@ name:"木劍",
 type:"weapon",
 power:5
 }
-]
-
+],
 village:{
 level:1,
 population:3,
