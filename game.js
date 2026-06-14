@@ -100,10 +100,10 @@ document.getElementById("exp").innerText=player.exp;
 document.getElementById("gold").innerText=player.gold;
 
 document.getElementById("power").innerText=
-player.power + player.weapon.power;
+player.power + (player.weapon ? player.weapon.power : 0);
 
 document.getElementById("weapon").innerText=
-player.weapon.name;
+player.weapon ? player.weapon.name : "無";
 
 }
 
