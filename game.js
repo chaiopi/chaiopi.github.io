@@ -1,4 +1,4 @@
-/**********************
+document.getElementsByTagName("h1")[0].style.fontSize = "6vw";/**********************
  * 萬界修仙 V10 架構版
  * Core Data System
  **********************/
@@ -143,6 +143,37 @@ const weapons = [
 }
 
 ];
+
+function getRandomWeapon(){
+
+    const roll = Math.random();
+
+    if(roll < 0.40){
+        return weapons[
+            Math.floor(Math.random()*2)
+        ];
+    }
+
+    if(roll < 0.70){
+        return weapons[
+            2 + Math.floor(Math.random()*2)
+        ];
+    }
+
+    if(roll < 0.90){
+        return weapons[
+            4 + Math.floor(Math.random()*2)
+        ];
+    }
+
+    if(roll < 0.98){
+        return weapons[
+            6 + Math.floor(Math.random()*2)
+        ];
+    }
+
+    return weapons[8];
+}
 
 /* ======================
    🌱 靈根系統
