@@ -283,3 +283,4 @@ loadGame();
 updateUI();
 
 log("🌟 歡迎來到萬界修仙");
+console.log("GAME OK");
