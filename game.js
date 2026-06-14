@@ -345,13 +345,25 @@ function renderBag(){
     let html = "<h3>🎒 背包</h3>";
 
     player.bag.forEach((item,i)=>{
-        html += `
-            <button onclick="equip(${i})">
-                ${item.name}
-                ${item.rarity ? "【"+item.rarity+"】" : ""}
-            </button>
-        `;
-    });
+
+    html += `
+        <button onclick="equip(${i})">
+
+            ${item.name}
+
+            ${item.count
+                ? " x" + item.count
+                : ""
+            }
+
+            ${item.rarity
+                ? "【"+item.rarity+"】"
+                : ""
+            }
+
+        </button>
+    `;
+});
 
     box.innerHTML = html;
 }
@@ -399,10 +411,24 @@ function explore(){
         + "】"
     );
 }
-        player.bag.push({
-            name: m.drop,
-            type: "item"
-        });
+        const existItem = player.bag.find(
+    item =>
+        item.type === "item" &&
+        item.name === m.drop
+);
+
+if(existItem){
+
+    existItem.count++;
+
+}else{
+
+    player.bag.push({
+        name: m.drop,
+        type: "item",
+        count: 1
+    });
+}
 
     } else {
         log("💀 戰敗");
