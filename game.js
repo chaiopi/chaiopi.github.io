@@ -190,15 +190,30 @@ Math.floor(Math.random()*monsters.length)
 
 log("⚔️ 遭遇 "+monster.name);
 
-if(player.power>=monster.power){
+if(
+player.power + player.weapon.power
+>= monster.power
+){
 
 player.exp+=monster.exp;
 
 player.gold+=monster.gold;
 
 player.bag.push({
-name:monster.drop
+name:monster.drop,
+type:"item"
 });
+
+if(Math.random()<0.3){
+
+player.bag.push({
+name:"鐵劍",
+type:"weapon",
+power:10
+});
+
+}
+  
 
 log("🏆 擊敗 "+monster.name);
 
