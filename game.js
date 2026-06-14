@@ -55,6 +55,11 @@ gold:100,
 
 power:10,
 
+weapon:{
+name:"木劍",
+power:5
+},
+
 partner:null,
 
 children:[],
