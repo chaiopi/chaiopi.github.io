@@ -1,54 +1,30 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>萬界仙朝</title>
-
+<title>萬界修仙</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🏯 萬界仙朝 🏯</h1>
+<h1>萬界修仙</h1>
 
-<div class="player">
-
-<h2>散修</h2>
-
-<p>境界：<span id="realm">凡人</span></p>
-
-<p>靈根：<span id="root">未知</span></p>
-
-<p>修為：<span id="exp">0</span></p>
-
-<p>靈石：<span id="gold">100</span></p>
-
-<p>戰力：<span id="power">10</span></p>
-
-<p>武器：<span id="weapon">木劍</span></p> 
-  
+<div id="panel">
+<p>境界：<span id="realm"></span></p>
+<p>修為：<span id="exp"></span></p>
+<p>靈石：<span id="gold"></span></p>
+<p>戰力：<span id="power"></span></p>
+<p>武器：<span id="weapon"></span></p>
 </div>
 
 <div id="log"></div>
 
-<div class="menu">
-
-<button onclick="cultivate()">閉關修煉</button>
-
-<button onclick="explore()">外出探索</button>
-
+<div id="menu">
+<button onclick="cultivate()">修煉</button>
+<button onclick="explore()">探索</button>
 <button onclick="showBag()">背包</button>
-
-<button onclick="findPartner()">尋找道侶</button>
-
-<button onclick="haveChild()">培養後代</button>
-
-<button onclick="openVillage()">村莊</button>
-
 <button onclick="saveGame()">存檔</button>
-
 </div>
 
 <script src="game.js"></script>
