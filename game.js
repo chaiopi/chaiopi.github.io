@@ -86,6 +86,64 @@ const monsters = [
     }
 ];
 
+const weapons = [
+
+{
+    name:"鐵劍",
+    atk:10,
+    rarity:"普通"
+},
+
+{
+    name:"鋼劍",
+    atk:20,
+    rarity:"精良"
+},
+
+{
+    name:"青鋒劍",
+    atk:30,
+    rarity:"精良"
+},
+
+{
+    name:"靈劍",
+    atk:50,
+    rarity:"稀有"
+},
+
+{
+    name:"玄冰劍",
+    atk:80,
+    rarity:"稀有"
+},
+
+{
+    name:"魔劍",
+    atk:120,
+    rarity:"史詩"
+},
+
+{
+    name:"血煞劍",
+    atk:180,
+    rarity:"史詩"
+},
+
+{
+    name:"誅仙劍",
+    atk:300,
+    rarity:"傳說"
+},
+
+{
+    name:"軒轅劍",
+    atk:500,
+    rarity:"傳說"
+}
+
+];
+
 /* ======================
    🌱 靈根系統
 ====================== */
