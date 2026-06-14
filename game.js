@@ -343,16 +343,30 @@ function explore(){
         player.gold += m.gold;
 
         log("🏆 擊敗 " + m.name);
-    if(Math.random() < 0.3){
+   if(Math.random() < 0.35){
 
-    player.bag.push({
-        name:"鐵劍",
+        const weapon =
+        getRandomWeapon();
+
+      player.bag.push({
+
+        name:weapon.name,
+
         type:"weapon",
-        atk:10,
-        rarity:"普通"
+
+        atk:weapon.atk,
+
+        rarity:weapon.rarity
+
     });
 
-    log("🗡️ 掉落 鐵劍");
+    log(
+        "🗡️ 掉落 "
+        + weapon.name
+        + "【"
+        + weapon.rarity
+        + "】"
+    );
 }
         player.bag.push({
             name: m.drop,
