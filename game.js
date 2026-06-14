@@ -93,19 +93,18 @@ box.scrollTop=box.scrollHeight;
 
 function updateUI(){
 
-document.getElementById("realm").innerText=player.realm;
+document.getElementById("realm").innerText = player.realm;
+document.getElementById("root").innerText = player.root;
+document.getElementById("exp").innerText = player.exp;
+document.getElementById("gold").innerText = player.gold;
 
-document.getElementById("root").innerText=player.root;
+let weaponName = player.weapon ? player.weapon.name : "無";
+let weaponPower = player.weapon ? player.weapon.power : 0;
 
-document.getElementById("exp").innerText=player.exp;
+document.getElementById("weapon").innerText = weaponName + " (+" + weaponPower + ")";
 
-document.getElementById("gold").innerText=player.gold;
-
-document.getElementById("power").innerText=
-player.power + (player.weapon ? player.weapon.power : 0);
-
-document.getElementById("weapon").innerText=
-player.weapon ? player.weapon.name : "無";
+document.getElementById("power").innerText =
+player.power + weaponPower;
 
 }
 
@@ -155,24 +154,18 @@ updateUI();
 
 }
 
-function equip(index){
+window.equip = function(index){
 
 let item = player.bag[index];
 
 if(!item){
-
-log("❌ 無法裝備");
-
+log("❌ 沒這個物品");
 return;
-
 }
 
 if(item.type !== "weapon"){
-
 log("❌ 這不是武器");
-
 return;
-
 }
 
 player.weapon = item;
@@ -181,7 +174,7 @@ log("⚔️ 已裝備：" + item.name);
 
 updateUI();
 
-}
+};
 
 function explore(){
 
@@ -254,19 +247,23 @@ function showBag(){
 
 let box = document.getElementById("log");
 
-box.innerHTML = "【背包】<br><br>";
+let text = "【背包】<br><br>";
 
 player.bag.forEach((item,index)=>{
 
-let btn =
-`<button onclick="equip(${index})">
-${item.name}
-${item.type==="weapon" ? "(武器)" : ""}
-</button><br>`;
-
-box.innerHTML += btn;
+text += `
+<div style="margin-bottom:6px;">
+<button onclick="equip(${index})">
+${item.name} ${item.type === "weapon" ? "(武器)" : ""}
+</button>
+</div>
+`;
 
 });
+
+box.innerHTML = text;
+
+}
 
 }
 
