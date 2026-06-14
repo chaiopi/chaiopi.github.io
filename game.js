@@ -153,6 +153,26 @@ updateUI();
 
 }
 
+function equip(index){
+
+let item = player.bag[index];
+
+if(!item || !item.type){
+
+log("❌ 不能裝備");
+
+return;
+
+}
+
+player.weapon = item;
+
+log("⚔️ 已裝備：" + item.name);
+
+updateUI();
+
+}
+
 function explore(){
 
 let monster=
@@ -196,13 +216,27 @@ function showBag(){
 
 let text="【背包】\n\n";
 
-player.bag.forEach(item=>{
+player.bag.forEach((item,index)=>{
 
-text+=item.name+"\n";
+if(item.type === "weapon"){
+
+text += index + ". " + item.name + " (武器)\n";
+
+}else{
+
+text += index + ". " + item.name + "\n";
+
+}
 
 });
 
-alert(text);
+let input = prompt(text + "\n\n輸入數字裝備武器");
+
+if(input !== null){
+
+equip(parseInt(input));
+
+}
 
 }
 
