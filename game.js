@@ -92,10 +92,18 @@ box.scrollTop=box.scrollHeight;
 function updateUI(){
 
 document.getElementById("realm").innerText=player.realm;
+
 document.getElementById("root").innerText=player.root;
+
 document.getElementById("exp").innerText=player.exp;
+
 document.getElementById("gold").innerText=player.gold;
-document.getElementById("power").innerText=player.power;
+
+document.getElementById("power").innerText=
+player.power + player.weapon.power;
+
+document.getElementById("weapon").innerText=
+player.weapon.name;
 
 }
 
