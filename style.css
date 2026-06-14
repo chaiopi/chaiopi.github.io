@@ -1,1 +1,60 @@
+body{
+background:black;
+color:#00ff88;
+font-family:Arial;
+text-align:center;
+}
 
+h1{
+font-size:60px;
+}
+
+#panel{
+width:500px;
+margin:auto;
+border:1px solid #00ff88;
+padding:20px;
+margin-bottom:10px;
+}
+
+#log{
+width:500px;
+height:250px;
+margin:auto;
+border:1px solid #00ff88;
+padding:10px;
+overflow-y:auto;
+text-align:left;
+margin-bottom:10px;
+}
+
+#bagBox{
+width:500px;
+margin:auto;
+margin-bottom:10px;
+}
+
+.bagItem button{
+width:100%;
+margin:5px 0;
+padding:10px;
+background:black;
+color:white;
+border:1px solid #00ff88;
+cursor:pointer;
+}
+
+#menu{
+width:500px;
+margin:auto;
+}
+
+#menu button{
+width:100%;
+margin:5px 0;
+padding:12px;
+background:black;
+color:#00ff88;
+border:1px solid #00ff88;
+cursor:pointer;
+}
