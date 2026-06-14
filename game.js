@@ -303,10 +303,18 @@ function saveGame(){
 
 function loadGame(){
 
-    const data = localStorage.getItem("wanjie_v10");
+    const data =
+    localStorage.getItem("wanjie_v10");
 
     if(data){
-        player = JSON.parse(data);
+
+        const save =
+        JSON.parse(data);
+
+        player = {
+            ...player,
+            ...save
+        };
     }
 }
 
