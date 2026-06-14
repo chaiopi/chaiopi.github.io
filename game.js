@@ -1,367 +1,295 @@
+/**********************
+ * 萬界修仙 V10 架構版
+ * Core Data System
+ **********************/
+
+/* ======================
+   🧍 玩家核心資料
+====================== */
+
 let player = {
+    id: "player_1",
 
-    realm:"凡人",
+    // 基礎屬性
+    name: "無名修士",
+    realm: "凡人",
+    exp: 0,
+    gold: 100,
 
-    exp:0,
+    // 戰鬥屬性
+    hp: 100,
+    atk: 10,
+    def: 5,
+    crit: 0.05,
+    critDmg: 1.5,
 
-    gold:100,
+    // 成長系統
+    root: "未知",
+    rootBonus: 1,
+    constitution: "凡體",
+    luck: 1,
 
-    power:10,
-
-    weapon:{
-        name:"木劍",
-        power:5,
-        rarity:"普通"
+    // 裝備
+    weapon: {
+        name: "木劍",
+        atk: 5,
+        rarity: "普通"
     },
 
-    bag:[
-        {
-            name:"木劍",
-            type:"weapon",
-            power:5,
-            rarity:"普通"
-        }
-    ]
+    armor: null,
+
+    // 背包
+    bag: [],
+
+    // 系統
+    skills: [],
+    sect: null,
+    partner: null,
+    children: []
 };
 
+/* ======================
+   👾 怪物資料
+====================== */
+
 const monsters = [
-
-{
-name:"野狼",
-power:5,
-exp:10,
-gold:10,
-drop:"狼牙"
-},
-
-{
-name:"山豬",
-power:10,
-exp:20,
-gold:20,
-drop:"豬皮"
-},
-
-{
-name:"蛇妖",
-power:20,
-exp:40,
-gold:40,
-drop:"蛇膽"
-}
-
+    {
+        name: "野狼",
+        hp: 30,
+        atk: 5,
+        exp: 10,
+        gold: 10,
+        drop: "狼牙"
+    },
+    {
+        name: "山豬",
+        hp: 60,
+        atk: 10,
+        exp: 20,
+        gold: 20,
+        drop: "豬皮"
+    },
+    {
+        name: "蛇妖",
+        hp: 120,
+        atk: 20,
+        exp: 40,
+        gold: 40,
+        drop: "蛇膽"
+    }
 ];
 
-function getRarityColor(rarity){
+/* ======================
+   🌱 靈根系統
+====================== */
 
-    switch(rarity){
+const roots = [
+    { name: "廢靈根", bonus: 1 },
+    { name: "下品靈根", bonus: 1.2 },
+    { name: "中品靈根", bonus: 1.5 },
+    { name: "上品靈根", bonus: 2 },
+    { name: "天靈根", bonus: 3 },
+    { name: "聖靈根", bonus: 5 },
+    { name: "混沌靈根", bonus: 10 }
+];
 
-        case "普通":
-            return "#FFFFFF";
-
-        case "精良":
-            return "#00FF00";
-
-        case "稀有":
-            return "#3399FF";
-
-        case "史詩":
-            return "#CC66FF";
-
-        case "傳說":
-            return "#FFD700";
-
-        default:
-            return "#FFFFFF";
-    }
-}
+/* ======================
+   ⚔️ 工具函式（核心）
+====================== */
 
 function log(msg){
-
-    let box =
-    document.getElementById("log");
-
+    const box = document.getElementById("log");
     box.innerHTML += msg + "<br>";
-
-    box.scrollTop =
-    box.scrollHeight;
+    box.scrollTop = box.scrollHeight;
 }
+
+/* ======================
+   📊 UI 更新系統
+====================== */
 
 function updateUI(){
 
-    document.getElementById("realm").innerText =
-    player.realm;
+    const set = (id, value) => {
+        const el = document.getElementById(id);
+        if(el) el.innerText = value;
+    };
 
-    document.getElementById("exp").innerText =
-    player.exp;
+    set("realm", player.realm);
+    set("exp", player.exp);
+    set("gold", player.gold);
+    set("root", player.root);
 
-    document.getElementById("gold").innerText =
-    player.gold;
+    const power =
+        player.atk +
+        player.weapon.atk;
 
-    document.getElementById("power").innerText =
-    player.power +
-    player.weapon.power;
+    set("power", power);
 
     document.getElementById("weapon").innerHTML =
     `<span style="color:${getRarityColor(player.weapon.rarity)}">
-    ${player.weapon.name}
-    【${player.weapon.rarity}】
+        ${player.weapon.name}【${player.weapon.rarity}】
     </span>`;
 
-    showBag();
+    renderBag();
 }
+
+/* ======================
+   🏆 境界系統
+====================== */
 
 function checkRealm(){
 
     if(player.exp >= 1000){
-
         player.realm = "元嬰";
-        player.power = 300;
+        player.atk = 300;
     }
-
     else if(player.exp >= 300){
-
         player.realm = "金丹";
-        player.power = 100;
+        player.atk = 100;
     }
-
     else if(player.exp >= 100){
-
         player.realm = "築基";
-        player.power = 30;
-    }
-
-    else{
-
-        player.realm = "凡人";
-        player.power = 10;
+        player.atk = 30;
     }
 }
+
+/* ======================
+   🧘 修煉系統
+====================== */
 
 function cultivate(){
 
-    let gain =
-    Math.floor(Math.random()*20)+10;
+    let gain = Math.floor(Math.random()*20 + 10);
+
+    gain = Math.floor(gain * player.rootBonus);
 
     player.exp += gain;
 
-    log("🧘 修煉成功 +" + gain);
+    log("🧘 修煉 +" + gain);
 
     checkRealm();
-
     updateUI();
 }
 
-function getRandomWeapon(){
+/* ======================
+   🌱 靈根系統
+====================== */
 
-    let roll = Math.random();
+function checkRoot(){
 
-    if(roll < 0.60){
-
-        return{
-            name:"鐵劍",
-            type:"weapon",
-            power:10,
-            rarity:"普通"
-        };
-    }
-
-    if(roll < 0.85){
-
-        return{
-            name:"鋼劍",
-            type:"weapon",
-            power:20,
-            rarity:"精良"
-        };
-    }
-
-    if(roll < 0.97){
-
-        return{
-            name:"靈劍",
-            type:"weapon",
-            power:35,
-            rarity:"稀有"
-        };
-    }
-
-    if(roll < 0.995){
-
-        return{
-            name:"魔劍",
-            type:"weapon",
-            power:55,
-            rarity:"史詩"
-        };
-    }
-
-    return{
-        name:"誅仙劍",
-        type:"weapon",
-        power:80,
-        rarity:"傳說"
-    };
-}
-
-function explore(){
-
-    let monster =
-    monsters[
-    Math.floor(
-    Math.random()*monsters.length
-    )];
-
-    log("⚔️ 遭遇 " + monster.name);
-
-    let totalPower =
-    player.power +
-    player.weapon.power;
-
-    if(totalPower >= monster.power){
-
-        player.exp += monster.exp;
-
-        player.gold += monster.gold;
-
-        log("🏆 擊敗 " + monster.name);
-
-        log("✨ 修為 +" + monster.exp);
-
-        log("💰 靈石 +" + monster.gold);
-
-        player.bag.push({
-
-            name:monster.drop,
-
-            type:"item"
-        });
-
-        log("🎁 獲得 " + monster.drop);
-
-        if(Math.random() < 0.4){
-
-            let weapon =
-            getRandomWeapon();
-
-            player.bag.push(weapon);
-
-            log(
-            "🗡️ 掉落 "
-            + weapon.name
-            + "【"
-            + weapon.rarity
-            + "】"
-            );
-        }
-
-    }else{
-
-        log("💀 不敵 " + monster.name);
-    }
-
-    checkRealm();
-
-    updateUI();
-}
-
-window.equip = function(index){
-
-    let item =
-    player.bag[index];
-
-    if(!item){
-
+    if(player.root !== "未知"){
+        log("🌱 已擁有靈根：" + player.root);
         return;
     }
 
+    const r = roots[Math.floor(Math.random()*roots.length)];
+
+    player.root = r.name;
+    player.rootBonus = r.bonus;
+
+    log("🌱 覺醒靈根：" + r.name);
+
+    updateUI();
+}
+
+/* ======================
+   🗡️ 裝備系統
+====================== */
+
+function equip(index){
+
+    const item = player.bag[index];
+    if(!item) return;
+
     if(item.type !== "weapon"){
-
-        log("❌ 這不是武器");
-
+        log("❌ 不是武器");
         return;
     }
 
     player.weapon = item;
 
-    log(
-    "🗡️ 裝備 "
-    + item.name
-    + "【"
-    + item.rarity
-    + "】"
-    );
+    log("🗡️ 裝備：" + item.name);
 
     updateUI();
 }
 
-function showBag(){
+/* ======================
+   🎒 背包系統（可擴展UI）
+====================== */
 
-    let html =
-    "<h3>🎒 背包</h3>";
+function renderBag(){
 
-    player.bag.forEach(
+    const box = document.getElementById("bagBox");
+    if(!box) return;
 
-    (item,index)=>{
+    let html = "<h3>🎒 背包</h3>";
 
-    html += `
-    <div class="bagItem">
-
-    <button onclick="equip(${index})">
-
-    <span style="
-    color:${getRarityColor(item.rarity)}
-    ">
-
-    ${item.name}
-
-    ${
-    item.rarity
-    ? "【"+item.rarity+"】"
-    : ""
-    }
-
-    </span>
-
-    </button>
-
-    </div>
-    `;
+    player.bag.forEach((item,i)=>{
+        html += `
+            <button onclick="equip(${i})">
+                ${item.name}
+                ${item.rarity ? "【"+item.rarity+"】" : ""}
+            </button>
+        `;
     });
 
-    document.getElementById("bagBox")
-    .innerHTML = html;
+    box.innerHTML = html;
 }
 
+/* ======================
+   ⚔️ 戰鬥系統
+====================== */
+
+function explore(){
+
+    const m = monsters[Math.floor(Math.random()*monsters.length)];
+
+    log("⚔️ 遭遇 " + m.name);
+
+    const playerPower = player.atk + player.weapon.atk;
+
+    if(playerPower >= m.atk){
+
+        player.exp += m.exp;
+        player.gold += m.gold;
+
+        log("🏆 擊敗 " + m.name);
+
+        player.bag.push({
+            name: m.drop,
+            type: "item"
+        });
+
+    } else {
+        log("💀 戰敗");
+    }
+
+    checkRealm();
+    updateUI();
+}
+
+/* ======================
+   💾 存檔系統
+====================== */
+
 function saveGame(){
-
-    localStorage.setItem(
-    "wanjie_v3",
-    JSON.stringify(player)
-    );
-
-    log("💾 存檔成功");
+    localStorage.setItem("wanjie_v10", JSON.stringify(player));
+    log("💾 已存檔");
 }
 
 function loadGame(){
 
-    let save =
-    localStorage.getItem(
-    "wanjie_v3"
-    );
+    const data = localStorage.getItem("wanjie_v10");
 
-    if(save){
-
-        player =
-        JSON.parse(save);
+    if(data){
+        player = JSON.parse(data);
     }
 }
 
+/* ======================
+   🎮 初始化
+====================== */
+
 loadGame();
-
-checkRealm();
-
 updateUI();
-
-log("🌟 歡迎來到萬界修仙 V3.0");
-console.log("GAME OK");
+log("🌟 萬界修仙 V10 架構啟動");
