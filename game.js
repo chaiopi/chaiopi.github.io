@@ -2,6 +2,10 @@ let player = {
 
     realm:"凡人",
 
+    root:"未知",
+
+    rootBonus:1,
+
     exp:0,
 
     gold:100,
@@ -52,6 +56,45 @@ drop:"蛇膽"
 
 ];
 
+const roots = [
+
+{
+name:"廢靈根",
+bonus:1
+},
+
+{
+name:"下品靈根",
+bonus:1.2
+},
+
+{
+name:"中品靈根",
+bonus:1.5
+},
+
+{
+name:"上品靈根",
+bonus:2
+},
+
+{
+name:"天靈根",
+bonus:3
+},
+
+{
+name:"聖靈根",
+bonus:5
+},
+
+{
+name:"混沌靈根",
+bonus:10
+}
+
+];
+
 function getRarityColor(rarity){
 
     switch(rarity){
@@ -92,6 +135,9 @@ function updateUI(){
     document.getElementById("realm").innerText =
     player.realm;
 
+    document.getElementById("root").innerText =
+    player.root;
+    
     document.getElementById("exp").innerText =
     player.exp;
 
@@ -135,7 +181,11 @@ function checkRealm(){
 function cultivate(){
 
     let gain =
-    Math.floor(Math.random()*20)+10;
+    Math.floor(
+    (Math.random()*20+10)
+    *
+    player.rootBonus
+    );
 
     player.exp += gain;
 
@@ -349,6 +399,38 @@ function loadGame(){
         player =
         JSON.parse(save);
     }
+}
+
+function checkRoot(){
+
+    if(player.root !== "未知"){
+
+        log(
+        "🌱 你的靈根是："
+        + player.root
+        );
+
+        return;
+    }
+
+    let root =
+    roots[
+    Math.floor(
+    Math.random()*roots.length
+    )];
+
+    player.root =
+    root.name;
+
+    player.rootBonus =
+    root.bonus;
+
+    log(
+    "🌱 覺醒靈根："
+    + root.name
+    );
+
+    updateUI();
 }
 
 loadGame();
