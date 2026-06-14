@@ -47,10 +47,39 @@ const monsters = [
     }
 ];
 
+function getRarityColor(rarity){
+
+    switch(rarity){
+
+        case "普通":
+            return "#FFFFFF";
+
+        case "精良":
+            return "#00FF00";
+
+        case "稀有":
+            return "#3399FF";
+
+        case "史詩":
+            return "#CC66FF";
+
+        case "傳說":
+            return "#FFD700";
+
+        default:
+            return "#FFFFFF";
+    }
+}
+
 function log(msg){
-    let box = document.getElementById("log");
+
+    let box =
+        document.getElementById("log");
+
     box.innerHTML += msg + "<br>";
-    box.scrollTop = box.scrollHeight;
+
+    box.scrollTop =
+        box.scrollHeight;
 }
 
 function updateUI(){
@@ -65,23 +94,29 @@ function updateUI(){
         player.gold;
 
     document.getElementById("power").innerText =
-        player.power + player.weapon.power;
+        player.power +
+        player.weapon.power;
 
-    document.getElementById("weapon").innerText =
-        player.weapon.name + "【" + player.weapon.rarity + "】";
+    document.getElementById("weapon").innerHTML =
+    `<span style="color:${getRarityColor(player.weapon.rarity)}">
+    ${player.weapon.name}【${player.weapon.rarity}】
+    </span>`;
 }
 
 function checkRealm(){
 
     if(player.exp >= 1000){
+
         player.realm = "元嬰";
         player.power = 300;
     }
     else if(player.exp >= 300){
+
         player.realm = "金丹";
         player.power = 100;
     }
     else if(player.exp >= 100){
+
         player.realm = "築基";
         player.power = 30;
     }
@@ -106,6 +141,7 @@ function getRandomWeapon(){
     let roll = Math.random();
 
     if(roll < 0.60){
+
         return {
             name:"鐵劍",
             type:"weapon",
@@ -115,6 +151,7 @@ function getRandomWeapon(){
     }
 
     if(roll < 0.85){
+
         return {
             name:"鋼劍",
             type:"weapon",
@@ -123,7 +160,8 @@ function getRandomWeapon(){
         };
     }
 
-    if(roll < 0.97){
+    if(roll < 0.95){
+
         return {
             name:"靈劍",
             type:"weapon",
@@ -132,10 +170,21 @@ function getRandomWeapon(){
         };
     }
 
+    if(roll < 0.99){
+
+        return {
+            name:"魔劍",
+            type:"weapon",
+            power:55,
+            rarity:"史詩"
+        };
+    }
+
     return {
-        name:"仙劍",
+
+        name:"誅仙劍",
         type:"weapon",
-        power:60,
+        power:100,
         rarity:"傳說"
     };
 }
@@ -158,13 +207,17 @@ function explore(){
     if(totalPower >= monster.power){
 
         player.exp += monster.exp;
+
         player.gold += monster.gold;
 
         log("🏆 擊敗 "+monster.name);
+
         log("✨ 修為 +"+monster.exp);
+
         log("💰 靈石 +"+monster.gold);
 
         player.bag.push({
+
             name:monster.drop,
             type:"item"
         });
@@ -176,7 +229,9 @@ function explore(){
             let weapon =
                 getRandomWeapon();
 
-            player.bag.push(weapon);
+            player.bag.push(
+                weapon
+            );
 
             log(
                 "🗡️ 掉落 " +
@@ -240,13 +295,23 @@ function showBag(){
 
         html += `
         <button onclick="equip(${index})">
-            ${item.name}
-            ${
-                item.rarity
-                ? "【"+item.rarity+"】"
-                : ""
-            }
+
+        <span style="
+        color:${getRarityColor(item.rarity)}
+        ">
+
+        ${item.name}
+
+        ${
+        item.rarity
+        ? "【"+item.rarity+"】"
+        : ""
+        }
+
+        </span>
+
         </button>
+
         <br><br>
         `;
     });
