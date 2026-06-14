@@ -346,24 +346,22 @@ function renderBag(){
 
     player.bag.forEach((item,i)=>{
 
-    html += `
-        <button onclick="equip(${i})">
+        let text = item.name;
 
-            ${item.name}
+        if(item.type === "item" && item.count){
+            text += " x" + item.count;
+        }
 
-            ${item.count
-                ? " x" + item.count
-                : ""
-            }
+        if(item.rarity){
+            text += "【" + item.rarity + "】";
+        }
 
-            ${item.rarity
-                ? "【"+item.rarity+"】"
-                : ""
-            }
-
-        </button>
-    `;
-});
+        html += `
+            <button onclick="equip(${i})">
+                ${text}
+            </button>
+        `;
+    });
 
     box.innerHTML = html;
 }
