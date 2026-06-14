@@ -7,11 +7,43 @@ let roots = [
 "混沌靈根"
 ];
 
+const monsters = [
 
+{
+name:"野狼",
+power:5,
+exp:15,
+gold:20,
+drop:"狼牙"
+},
+
+{
+name:"山豬",
+power:10,
+exp:25,
+gold:35,
+drop:"豬皮"
+},
+
+{
+name:"蛇妖",
+power:20,
+exp:50,
+gold:60,
+drop:"妖丹"
+},
+
+{
+name:"黑熊妖",
+power:40,
+exp:100,
+gold:120,
+drop:"熊膽"
+}
+
+];
 
 let player = {
-
-name:"散修",
 
 realm:"凡人",
 
@@ -29,65 +61,24 @@ children:[],
 
 bag:[
 {
-name:"木劍",
-power:5
+name:"木劍"
 }
 ],
 
 village:{
 level:1,
+population:3,
 wood:50,
-food:50,
-population:3
+food:50
 }
 
 };
-
-const monsters = [
-
-{
-name:"野狼",
-hp:20,
-power:5,
-exp:15,
-gold:20,
-drop:"狼牙"
-},
-
-{
-name:"山豬",
-hp:35,
-power:10,
-exp:25,
-gold:35,
-drop:"豬皮"
-},
-
-{
-name:"蛇妖",
-hp:60,
-power:20,
-exp:50,
-gold:60,
-drop:"妖丹"
-},
-
-{
-name:"黑熊妖",
-hp:120,
-power:40,
-exp:100,
-gold:120,
-drop:"熊膽"
-}
-
-];
 
 function log(msg){
 
 let box=document.getElementById("log");
 
-box.innerHTML += msg+"<br>";
+box.innerHTML+=msg+"<br>";
 
 box.scrollTop=box.scrollHeight;
 
@@ -96,14 +87,42 @@ box.scrollTop=box.scrollHeight;
 function updateUI(){
 
 document.getElementById("realm").innerText=player.realm;
-
 document.getElementById("root").innerText=player.root;
-
 document.getElementById("exp").innerText=player.exp;
-
 document.getElementById("gold").innerText=player.gold;
-
 document.getElementById("power").innerText=player.power;
+
+}
+
+function checkRealm(){
+
+if(player.exp>=5000){
+
+player.realm="元嬰";
+player.power=1000;
+
+}
+
+else if(player.exp>=1000){
+
+player.realm="金丹";
+player.power=300;
+
+}
+
+else if(player.exp>=300){
+
+player.realm="築基";
+player.power=100;
+
+}
+
+else if(player.exp>=50){
+
+player.realm="煉氣";
+player.power=30;
+
+}
 
 }
 
@@ -113,105 +132,48 @@ let gain=Math.floor(Math.random()*20)+10;
 
 player.exp+=gain;
 
-log("🧘 修煉成功，獲得修為 "+gain);
+log("🧘 修煉成功，修為+"+gain);
 
 checkRealm();
 
 updateUI();
-
-}
-
-function checkRealm(){
-
-if(player.exp>=1000){
-
-player.realm="金丹";
-
-player.power=500;
-
-}
-
-else if(player.exp>=300){
-
-player.realm="築基";
-
-player.power=100;
-
-}
-
-else if(player.exp>=50){
-
-player.realm="煉氣";
-
-player.power=30;
-
-}
 
 }
 
 function explore(){
 
-let monster =
+let monster=
 monsters[
-Math.floor(
-Math.random()*monsters.length
-)
+Math.floor(Math.random()*monsters.length)
 ];
 
-log(
-"⚔️ 遭遇 "+monster.name
-);
+log("⚔️ 遭遇 "+monster.name);
 
-if(player.power >= monster.power){
+if(player.power>=monster.power){
 
-player.exp += monster.exp;
+player.exp+=monster.exp;
 
-player.gold += monster.gold;
+player.gold+=monster.gold;
 
 player.bag.push({
-name:monster.drop,
-power:0
+name:monster.drop
 });
 
-log(
-"🏆 擊敗 "+monster.name
-);
+log("🏆 擊敗 "+monster.name);
 
-log(
-"✨ 修為 +"+monster.exp
-);
+log("✨ 修為 +"+monster.exp);
 
-log(
-"💰 靈石 +"+monster.gold
-);
+log("💰 靈石 +"+monster.gold);
 
-log(
-"🎁 獲得 "+monster.drop
-);
+log("🎁 獲得 "+monster.drop);
 
 }else{
 
-log(
-"💀 不敵 "+monster.name
-);
+log("💀 不敵 "+monster.name);
 
 }
 
 checkRealm();
-
-updateUI();
-
-}
-
-else{
-
-let gain=Math.floor(Math.random()*30);
-
-player.exp+=gain;
-
-log("🐺 擊敗妖獸，修為+"+gain);
-
-}
 
 updateUI();
 
@@ -276,13 +238,12 @@ talent:Math.floor(Math.random()*100)
 player.children.push(child);
 
 log(
-"👶 誕生子嗣："+child.name+
+"👶 誕生 "+
+child.name+
 " 資質："+child.talent
 );
 
 }
-
-function openVillage(){
 
 function openVillage(){
 
@@ -307,7 +268,7 @@ alert(
 function saveGame(){
 
 localStorage.setItem(
-"xiandao",
+"wanjie_save",
 JSON.stringify(player)
 );
 
@@ -318,13 +279,21 @@ log("💾 存檔成功");
 function loadGame(){
 
 let save=
-localStorage.getItem("xiandao");
+localStorage.getItem("wanjie_save");
 
 if(save){
 
+try{
+
 player=JSON.parse(save);
 
-log("📖 讀檔成功");
+}catch(e){
+
+localStorage.removeItem(
+"wanjie_save"
+);
+
+}
 
 }
 
