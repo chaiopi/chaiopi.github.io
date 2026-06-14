@@ -157,9 +157,17 @@ function equip(index){
 
 let item = player.bag[index];
 
-if(!item || !item.type){
+if(!item){
 
-log("❌ 不能裝備");
+log("❌ 無法裝備");
+
+return;
+
+}
+
+if(item.type !== "weapon"){
+
+log("❌ 這不是武器");
 
 return;
 
