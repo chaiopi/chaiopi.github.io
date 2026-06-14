@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>萬界修仙</title>
+<title>萬界修仙 V3.0</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,56 +11,37 @@
 
 <h1>萬界修仙</h1>
 
-<!-- 角色資訊 -->
 <div id="panel">
 
-    <p>境界：<span id="realm"></span></p>
+<h2>角色資訊</h2>
 
-    <p>修為：<span id="exp"></span></p>
+<p>境界：<span id="realm"></span></p>
 
-    <p>靈石：<span id="gold"></span></p>
+<p>修為：<span id="exp"></span></p>
 
-    <p>戰力：<span id="power"></span></p>
+<p>靈石：<span id="gold"></span></p>
 
-    <p>武器：<span id="weapon"></span></p>
+<p>戰力：<span id="power"></span></p>
 
-</div>
-
-<!-- 戰鬥紀錄 -->
-<div id="log">
+<p>武器：<span id="weapon"></span></p>
 
 </div>
 
-<!-- 背包區 -->
-<div id="bagBox">
+<div id="log"></div>
 
-    <h3>🎒 背包</h3>
+<div id="bagBox"></div>
 
-</div>
-
-<!-- 功能按鈕 -->
 <div id="menu">
 
-    <button onclick="cultivate()">
-        修煉
-    </button>
+<button onclick="cultivate()">修煉</button>
 
-    <button onclick="explore()">
-        探索
-    </button>
+<button onclick="explore()">探索</button>
 
-    <button onclick="showBag()">
-        背包
-    </button>
-
-    <button onclick="saveGame()">
-        存檔
-    </button>
+<button onclick="saveGame()">存檔</button>
 
 </div>
 
 <script src="game.js"></script>
 
 </body>
-
 </html>
