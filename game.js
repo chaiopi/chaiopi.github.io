@@ -214,29 +214,21 @@ updateUI();
 
 function showBag(){
 
-let text="【背包】\n\n";
+let box = document.getElementById("log");
+
+box.innerHTML = "【背包】<br><br>";
 
 player.bag.forEach((item,index)=>{
 
-if(item.type === "weapon"){
+let btn =
+`<button onclick="equip(${index})">
+${item.name}
+${item.type==="weapon" ? "(武器)" : ""}
+</button><br>`;
 
-text += index + ". " + item.name + " (武器)\n";
-
-}else{
-
-text += index + ". " + item.name + "\n";
-
-}
+box.innerHTML += btn;
 
 });
-
-let input = prompt(text + "\n\n輸入數字裝備武器");
-
-if(input !== null){
-
-equip(parseInt(input));
-
-}
 
 }
 
