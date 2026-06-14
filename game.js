@@ -173,7 +173,7 @@ log("⚔️ 已裝備：" + item.name);
 
 updateUI();
 
-};
+}
 
 function explore(){
 
