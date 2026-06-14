@@ -97,6 +97,30 @@ const roots = [
    ⚔️ 工具函式（核心）
 ====================== */
 
+function getRarityColor(rarity){
+
+    switch(rarity){
+
+        case "普通":
+            return "#FFFFFF";
+
+        case "精良":
+            return "#00FF00";
+
+        case "稀有":
+            return "#3399FF";
+
+        case "史詩":
+            return "#CC66FF";
+
+        case "傳說":
+            return "#FFD700";
+
+        default:
+            return "#FFFFFF";
+    }
+}
+
 function log(msg){
     const box = document.getElementById("log");
     box.innerHTML += msg + "<br>";
