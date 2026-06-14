@@ -467,7 +467,7 @@ function loadGame(){
 /* ======================
    🎮 初始化
 ====================== */
-localStorage.removeItem("wanjie_v10");
+
 loadGame();
 updateUI();
 log("🌟 萬界修仙 V10 架構啟動");
