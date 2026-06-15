@@ -36,7 +36,12 @@ let player = {
         rarity: "普通"
     },
 
+    helmet: null,
     armor: null,
+    gloves: null,
+    boots: null,
+    ring: null,
+    necklace: null,
 
     // 背包
     bag: [
@@ -144,6 +149,45 @@ const weapons = [
 
 ];
 
+    const helmets = [
+
+{
+    name:"布帽",
+    type:"helmet",
+    def:3,
+    rarity:"普通"
+},
+
+{
+    name:"鐵盔",
+    type:"helmet",
+    def:8,
+    rarity:"精良"
+},
+
+{
+    name:"青龍冠",
+    type:"helmet",
+    def:15,
+    rarity:"稀有"
+},
+
+{
+    name:"天玄冠",
+    type:"helmet",
+    def:30,
+    rarity:"史詩"
+},
+
+{
+    name:"神皇冠",
+    type:"helmet",
+    def:50,
+    rarity:"傳說"
+}
+
+];
+
 function getRandomWeapon(){
 
     const roll = Math.random();
@@ -174,6 +218,16 @@ function getRandomWeapon(){
 
     return weapons[8];
 }
+function getRandomHelmet(){
+
+    return helmets[
+        Math.floor(
+            Math.random() * helmets.length
+        )
+    ];
+}
+
+
 
 /* ======================
    🌱 靈根系統
@@ -239,9 +293,14 @@ function updateUI(){
     set("gold", player.gold);
     set("root", player.root);
 
+    const helmetDef =
+     player.helmet
+     ? player.helmet.def
+     : 0;
     const power =
-        player.atk +
-        player.weapon.atk;
+     player.atk +
+     player.weapon.atk +
+     helmetDef;
 
     set("power", power);
 
@@ -249,6 +308,20 @@ function updateUI(){
     `<span style="color:${getRarityColor(player.weapon.rarity)}">
         ${player.weapon.name}【${player.weapon.rarity}】
     </span>`;
+
+    if(player.helmet){
+
+    document.getElementById("helmet").innerHTML =
+    `<span style="color:${getRarityColor(player.helmet.rarity)}">
+        ${player.helmet.name}【${player.helmet.rarity}】
+    </span>`;
+
+}else{
+
+    document.getElementById("helmet").innerText =
+    "無";
+
+}
 
     renderBag();
 }
@@ -321,14 +394,27 @@ function equip(index){
     const item = player.bag[index];
     if(!item) return;
 
-    if(item.type !== "weapon"){
-        log("❌ 不是武器");
-        return;
+    if(item.type === "weapon"){
+
+        player.weapon = item;
+
+        log("🗡️ 裝備：" + item.name);
+
     }
 
-    player.weapon = item;
+    else if(item.type === "helmet"){
 
-    log("🗡️ 裝備：" + item.name);
+        player.helmet = item;
+
+        log("🪖 裝備：" + item.name);
+
+    }
+
+    else{
+
+        log("❌ 無法裝備");
+
+    }
 
     updateUI();
 }
@@ -435,6 +521,34 @@ function explore(){
         + "】"
     );
 }
+
+if(Math.random() < 0.15){
+
+const helmet =
+getRandomHelmet();
+
+player.bag.push({
+
+    name:helmet.name,
+
+    type:"helmet",
+
+    def:helmet.def,
+
+    rarity:helmet.rarity
+
+});
+
+log(
+    "🪖 掉落 "
+    + helmet.name
+    + "【"
+    + helmet.rarity
+    + "】"
+);
+
+}
+
         const existItem = player.bag.find(
     item =>
         item.type === "item" &&
