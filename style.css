@@ -1,0 +1,57 @@
+body{
+background:#000;
+color:#00ff88;
+font-family:Arial;
+text-align:center;
+}
+
+h1{
+margin:20px 0;
+}
+
+#panel{
+width:500px;
+margin:auto;
+border:1px solid #00ff88;
+padding:15px;
+margin-bottom:10px;
+}
+
+#log{
+width:500px;
+height:250px;
+margin:auto;
+border:1px solid #00ff88;
+padding:10px;
+overflow-y:auto;
+text-align:left;
+margin-bottom:10px;
+}
+
+#bagBox{
+width:500px;
+margin:auto;
+border:1px solid #00ff88;
+padding:10px;
+margin-bottom:10px;
+min-height:100px;
+}
+
+#menu{
+width:500px;
+margin:auto;
+}
+
+button{
+width:100%;
+padding:10px;
+margin:5px 0;
+background:#111;
+color:#00ff88;
+border:1px solid #00ff88;
+cursor:pointer;
+}
+
+button:hover{
+background:#222;
+}
