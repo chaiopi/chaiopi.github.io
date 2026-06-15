@@ -55,3 +55,88 @@ cursor:pointer;
 button:hover{
 background:#222;
 }
+.legendary{
+    position:relative;
+    display:inline-block;
+
+    color:gold;
+
+    text-shadow:
+        0 0 5px gold,
+        0 0 10px gold,
+        0 0 20px gold,
+        0 0 40px gold;
+
+    animation:
+        goldGlow 1.5s infinite alternate,
+        pulseGlow 2s infinite;
+}
+
+.legendary::before{
+    content:"✦";
+    position:absolute;
+    left:-18px;
+    top:0;
+
+    animation:starFloat 2s infinite;
+}
+
+.legendary::after{
+    content:"✧";
+    position:absolute;
+    right:-18px;
+    top:0;
+
+    animation:starFloat 2s infinite 1s;
+}
+
+@keyframes starFloat{
+
+    0%{
+        transform:translateY(0px);
+        opacity:0;
+    }
+
+    50%{
+        transform:translateY(-8px);
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-16px);
+        opacity:0;
+    }
+}
+
+@keyframes pulseGlow{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+@keyframes goldGlow{
+
+    from{
+        text-shadow:
+            0 0 5px gold,
+            0 0 10px gold,
+            0 0 20px gold;
+    }
+
+    to{
+        text-shadow:
+            0 0 10px gold,
+            0 0 20px gold,
+            0 0 40px gold,
+            0 0 60px gold;
+    }
+}

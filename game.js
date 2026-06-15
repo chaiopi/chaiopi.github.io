@@ -348,6 +348,11 @@ function renderBag(){
 
         let text = item.name;
 
+        const color =
+        item.rarity
+        ? getRarityColor(item.rarity)
+        : "#FFFFFF";
+
         if(item.type === "item" && item.count){
             text += " x" + item.count;
         }
@@ -355,11 +360,32 @@ function renderBag(){
         if(item.rarity){
             text += "【" + item.rarity + "】";
         }
-
+        
+        const glow =
+        item.rarity === "傳說"
+        ? `
+        text-shadow:
+        0 0 5px gold,
+        0 0 10px gold,
+        0 0 20px gold,
+        0 0 30px gold;
+        `
+        : "";
+        
         html += `
-            <button onclick="equip(${i})">
-                ${text}
-            </button>
+        <button
+        onclick="equip(${i})"
+        style="
+        color:${color};
+        ${glow}
+        "
+        >
+        ${
+        item.rarity === "傳說"
+        ? `<span class="legendary">✨ ${text} ✨</span>`
+        : text
+        }
+        </button>
         `;
     });
 
